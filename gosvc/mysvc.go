@@ -33,6 +33,7 @@ type Message struct {
 func main() {
 	http.HandleFunc("/getTimeline", getTimeline)
 	http.HandleFunc("/post", postTweet)
+	http.HandleFunc("/testme/", testme)
 
 	log.Fatal(http.ListenAndServe(":8000", nil))
 
@@ -85,6 +86,8 @@ func postTweet(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err)
 	}
 
+	// inJWT := r.Header.Get("X-JWT-Assertion")
+
 	db, err := sql.Open("sqlite3", "./tweets.db")
 	if err != nil {
 		log.Fatal(err)
@@ -116,4 +119,17 @@ func postTweet(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusCreated)
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(jsonResp)
+}
+
+func testme(w http.ResponseWriter, r *http.Request) {
+	myJWT := r.Header.Get("X-JWT-Assertion")
+	log.Println(myJWT)
+	// print all headers
+	// for name, values := range r.Header {
+	// 	for _, value := range values {
+	// 		fmt.Println(name, value)
+	// 	}
+	// }
+	w.Header().Set("Content-Type", "application/json")
+	w.Write([]byte("{\"hello\": \"world\"}"))
 }
