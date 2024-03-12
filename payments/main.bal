@@ -43,7 +43,13 @@ service / on new http:Listener(9090) {
     resource function get accountDetails(int id) returns Account {
         var account = from Account a in accountDetails where a.userID == id select a;
         log:printInfo("Returning user: " + account.toString());
-        return account[0];
+        if (account.length() == 0) {
+            log:printError("User account not found!");
+            return {userID: 0, accountID: 0, accountType: "", balance: 0};
+        } else {
+            return account[0];
+        }
+        
     }
 
     resource function post payments(Payment pay) returns string {
