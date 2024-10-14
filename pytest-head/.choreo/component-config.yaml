@@ -1,8 +1,19 @@
 apiVersion: core.choreo.dev/v1beta1
 kind: ComponentConfig
 spec:
-  inbound:    
-    - name: pytest-head      
-      port: 8000      
-      type: REST      
-      networkVisibility: Project
+  inbound:
+    - name: pytest-head
+      # +required Numeric port value that gets exposed via the endpoint
+      port: 8000
+      # +required Type of traffic that the endpoint is accepting.
+      # Allowed values: REST, GraphQL, GRPC, TCP, UDP, WS.
+      type: REST
+      # +optional Network level visibility of the endpoint. Defaults to Public
+      # Accepted values: Project|Organization|Public.
+      networkVisibility: Public
+      # +optional Context (base path) of the API that gets exposed via the endpoint.
+      # This is mandatory if the endpoint type is set to REST, GraphQL or WS.
+      context: /
+      # +optional The path to the schema definition file. Defaults to wildcard route if not specified.
+      # This is only applicable to REST and WS endpoint types.
+      # The path should be relative to the Docker context.
