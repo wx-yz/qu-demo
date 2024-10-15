@@ -3,7 +3,7 @@ import requests
 
 app = FastAPI()
 
-@app.head('/')
+@app.head('/test')
 async def main(response: Response):
     r = requests.head('https://raw.githubusercontent.com/ramith/mylocal-data/refs/heads/main/ents/country.tsv')
     # response.headers = r.headers
