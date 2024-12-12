@@ -4,12 +4,8 @@ USER 10001
 
 WORKDIR /app
 
-COPY . .
-
-RUN go mod download
-
-RUN go build -o /main
+COPY main .
 
 EXPOSE 8080
 
-CMD ["/main"]
+CMD ["/app/main"]
