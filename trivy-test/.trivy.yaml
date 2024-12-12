@@ -1,1 +1,3 @@
-ignore-policy: .file.rego
+scan:
+  skip-dirs:
+    - /
