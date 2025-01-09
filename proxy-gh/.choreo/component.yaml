@@ -1,0 +1,14 @@
+schemaVersion: 1.1
+endpoints:
+  - name: proxygh
+    service:
+      port: 8080
+      basePath: /proxygh
+    type: REST
+    displayName: ProxyGH
+    networkVisibilities:
+      - Public
+    schemaFilePath: sample-openapi.yaml
+proxy:
+  type: REST
+  schemaFilePath: sample-openapi.yaml
